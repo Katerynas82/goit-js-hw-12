@@ -36,6 +36,7 @@ async function handleSubmitBtn(event) {
     return;
   }
   await fetchImages();
+  form.reset();
 }
 
 async function handleLoadMore() {
