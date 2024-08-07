@@ -1,8 +1,4 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
 const galleryList = document.querySelector('.gallery-list');
-let lightbox;
 
 export function createImages(images) {
   const markup = images
@@ -23,17 +19,8 @@ export function createImages(images) {
     .join('');
 
   galleryList.insertAdjacentHTML('beforeend', markup);
-
-  if (!lightbox) {
-    lightbox = new SimpleLightbox('.gallery-list a', {
-      captions: true,
-      captionsData: 'alt',
-      captionsDelay: 250,
-    });
-  } else {
-    lightbox.refresh();
-  }
 }
-export function clearImages() {
+
+  export function clearImages() {
   galleryList.innerHTML = '';
 }

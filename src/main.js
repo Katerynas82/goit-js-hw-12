@@ -1,6 +1,7 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
-
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { searchGalleryQuery } from './js/pixabay-api.js';
 import { createImages, clearImages } from './js/render-functions.js';
@@ -11,6 +12,12 @@ const loader = document.querySelector('.loader');
 const loadMoreBtn = document.querySelector('.load-btn');
 let currentPage = 1;
 let searchWord = '';
+
+const lightbox = new SimpleLightbox('.gallery-list a', {
+    captions: true,
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
 
 form.addEventListener('submit', handleSubmitBtn);
 loadMoreBtn.addEventListener('click', handleLoadMore);
@@ -46,11 +53,12 @@ async function fetchImages() {
     if (data.totalHits === 0) {
       iziToast.warning({
         position: 'bottomRight',
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
+        message: 'Sorry, there are no images matching your search query. Please try again!',
       });
     } else {
       createImages(data.hits);
+      lightbox.refresh();
+
       if (data.hits.length < 15 || currentPage * 15 >= data.totalHits) {
         loadMoreBtn.classList.add('hidden');
         iziToast.info({
