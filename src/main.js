@@ -33,6 +33,7 @@ async function handleSubmitBtn(event) {
       position: 'bottomRight',
       message: 'Please enter a search term',
     });
+    loadMoreBtn.classList.add('hidden');
     return;
   }
   await fetchImages();
@@ -40,6 +41,8 @@ async function handleSubmitBtn(event) {
 }
 
 async function handleLoadMore() {
+  if(!searchWord)
+    return;
   currentPage += 1;
   await fetchImages();
   smoothScroll();
